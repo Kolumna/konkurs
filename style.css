@@ -1,0 +1,35 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+header h1
+{
+    text-align: center;
+    margin-top: 100px;
+    font-size: 100px;
+    font-family: 'VT323', sans-serif;
+}
+canvas
+{
+    display: block;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 2px solid #111;
+}
+#niebo-canvas
+{
+    z-index: 1;
+}
+#mapa-canvas
+{
+    z-index: 2;
+}
+#postacie-canvas
+{
+    z-index: 3;
+}
