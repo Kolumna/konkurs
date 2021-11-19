@@ -16,19 +16,35 @@ let Silnik =
             mapaCtx: mapaCanvas.getContext("2d"),
         };
 
-        const grafika = new Image();
-        grafika.src = "grafika.png";
+        const niebo = new Image();
+        niebo.src = "niebo.png";
 
-        grafika.addEventListener("load", function()
+        const mapa = new Image();
+        mapa.src = "mapa.png";
+
+        const postacie = new Image();
+        postacie.src = "postacie.png";
+
+        niebo.addEventListener("load", function()
         {
-            const grafika = this;
+            const niebo = this;
+        });
+        mapa.addEventListener("load", function()
+        {
+            const mapa = this;
+        });
+        postacie.addEventListener("load", function()
+        {
+            const postacie = this;
         });
 
         let dane = 
         {
             nrKlatki:0,
             canvas: canvas,
-            grafika: grafika
+            niebo: niebo,
+            mapa : mapa,
+            postacie : postacie
         };
         Obiekty.ini(dane);
         Silnik.start(dane);
@@ -56,6 +72,7 @@ let Silnik =
     aktualizacje: function(dane)
     {
         Animacje.aktualizacja(dane);
+        Fizyka.aktualizacja(dane);
     },
     render: function(dane)
     {

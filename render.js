@@ -3,8 +3,12 @@ let Render =
     aktualizacja: function(dane)
     {
         Render.zadania.Rysuj(dane.obiekty.niebo, dane.canvas.nieboCtx);
+
 		dane.canvas.mapaCtx.clearRect(0,0,dane.canvas.mapaCanvas.width, dane.canvas.mapaCanvas.height);
 		Render.zadania.Rysuj(dane.obiekty.mapa, dane.canvas.mapaCtx);
+
+		dane.canvas.postacieCtx.clearRect(0,0,dane.canvas.postacieCanvas.width, dane.canvas.postacieCanvas.height);
+		Render.zadania.Rysuj(dane.obiekty.wiedzmin, dane.canvas.postacieCtx);
     },
     zadania: {
 		Rysuj: function(co, gdzie) 
