@@ -3,6 +3,7 @@ let Animacje =
     aktualizacja: function(dane)
     {
         Animacje.zadania.Niebo(dane);
+        Animacje.zadania.Wiedzmin(dane);
     },
     zadania:
     {
@@ -13,6 +14,10 @@ let Animacje =
             {
                 dane.obiekty.niebo.x = 0;
             }
+        },
+        Wiedzmin: function(dane)
+        {
+            dane.obiekty.wiedzmin.obecnyStan.animacja(dane);
         }
     }
 }

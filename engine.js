@@ -5,15 +5,18 @@ let Silnik =
         let nieboCanvas = document.getElementById("niebo-canvas");
         let postacieCanvas = document.getElementById("postacie-canvas");
         let mapaCanvas = document.getElementById("mapa-canvas");
+        let tloCanvas = document.getElementById("tlo-canvas");
 
         let canvas =
         {
             nieboCanvas: nieboCanvas,
+            tloCanvas: tloCanvas,
             postacieCanvas: postacieCanvas,
             mapaCanvas: mapaCanvas,
             nieboCtx: nieboCanvas.getContext("2d"),
             postacieCtx: postacieCanvas.getContext("2d"),
             mapaCtx: mapaCanvas.getContext("2d"),
+            tloCtx: tloCanvas.getContext("2d")
         };
 
         const niebo = new Image();
@@ -24,6 +27,9 @@ let Silnik =
 
         const postacie = new Image();
         postacie.src = "postacie.png";
+        
+        const tlo = new Image();
+        tlo.src = "tlo.png";
 
         niebo.addEventListener("load", function()
         {
@@ -37,6 +43,10 @@ let Silnik =
         {
             const postacie = this;
         });
+        tlo.addEventListener("load", function()
+        {
+            const tlo = this;
+        });
 
         let dane = 
         {
@@ -44,17 +54,21 @@ let Silnik =
             canvas: canvas,
             niebo: niebo,
             mapa : mapa,
-            postacie : postacie
+            postacie : postacie,
+            tlo : tlo
         };
+
+        
         Obiekty.ini(dane);
         Silnik.start(dane);
+        Input.ini(dane);
         
     },
     start: function(dane)
     {
         let petla = function()
         {
-            Silnik.wejscie(dane);
+            Silnik.input(dane);
             Silnik.aktualizacje(dane);
             Silnik.render(dane);
 
@@ -65,12 +79,13 @@ let Silnik =
 
         petla();
     },
-    wejscie: function(dane)
+    input: function(dane)
     {
-
+        Input.aktualizacja(dane);
     },
     aktualizacje: function(dane)
     {
+        Ruch.aktualizacja(dane);
         Animacje.aktualizacja(dane);
         Fizyka.aktualizacja(dane);
     },

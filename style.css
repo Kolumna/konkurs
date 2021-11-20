@@ -31,11 +31,18 @@ canvas
 {
     z-index: 1;
 }
-#mapa-canvas
+#tlo-canvas
 {
     z-index: 2;
+    top: 200px;
+    border: 0;
+    border-radius: 0;
+}
+#mapa-canvas
+{
+    z-index: 3;
 }
 #postacie-canvas
 {
-    z-index: 3;
+    z-index: 4;
 }
