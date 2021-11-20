@@ -4,6 +4,9 @@ let Render =
     {
         Render.zadania.Rysuj(dane.obiekty.niebo, dane.canvas.nieboCtx);
 
+		dane.canvas.tloCtx.clearRect(0,0,dane.canvas.tloCanvas.width, dane.canvas.tloCanvas.height);
+		Render.zadania.Rysuj(dane.obiekty.tlo, dane.canvas.tloCtx);
+
 		dane.canvas.mapaCtx.clearRect(0,0,dane.canvas.mapaCanvas.width, dane.canvas.mapaCanvas.height);
 		Render.zadania.Rysuj(dane.obiekty.mapa, dane.canvas.mapaCtx);
 
