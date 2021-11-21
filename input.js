@@ -36,6 +36,14 @@ let Input =
                         dane.obiekty.tabelaScian[i].x -= wiedzmin.predkoscX;
                     }
                 }
+                if(wiedzmin.x < dane.canvas.tloCanvas.width/2 || dane.obiekty.tlo.x <= dane.canvas.tloCanvas.width-dane.obiekty.tlo.w)
+                {
+                    wiedzmin.x += wiedzmin.predkoscTlo;
+                }
+                else
+                {
+                    dane.obiekty.tlo.x -= wiedzmin.predkoscTlo;
+                }
             }
         }
         if(Input.zadania.Nacisnieto(65))
@@ -58,6 +66,14 @@ let Input =
                     {
                         dane.obiekty.tabelaScian[i].x += wiedzmin.predkoscX;
                     }
+                }
+                if(wiedzmin.x > dane.canvas.tloCanvas.width/2 || dane.obiekty.tlo.x >= 0)
+                {
+                    wiedzmin.x -= wiedzmin.predkoscTlo;
+                }
+                else
+                {
+                    dane.obiekty.tlo.x += wiedzmin.predkoscTlo;
                 }
             }
         }

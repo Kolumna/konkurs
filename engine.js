@@ -6,6 +6,7 @@ let Silnik =
         let postacieCanvas = document.getElementById("postacie-canvas");
         let mapaCanvas = document.getElementById("mapa-canvas");
         let tloCanvas = document.getElementById("tlo-canvas");
+        let guiCanvas = document.getElementById("gui-canvas");
 
         let canvas =
         {
@@ -13,10 +14,12 @@ let Silnik =
             tloCanvas: tloCanvas,
             postacieCanvas: postacieCanvas,
             mapaCanvas: mapaCanvas,
+            guiCanvas: guiCanvas,
             nieboCtx: nieboCanvas.getContext("2d"),
             postacieCtx: postacieCanvas.getContext("2d"),
             mapaCtx: mapaCanvas.getContext("2d"),
-            tloCtx: tloCanvas.getContext("2d")
+            tloCtx: tloCanvas.getContext("2d"),
+            guiCtx: guiCanvas.getContext("2d")
         };
 
         const niebo = new Image();
@@ -30,6 +33,9 @@ let Silnik =
         
         const tlo = new Image();
         tlo.src = "tlo.png";
+
+        const gui = new Image();
+        gui.src = "serca.png";
 
         niebo.addEventListener("load", function()
         {
@@ -47,6 +53,10 @@ let Silnik =
         {
             const tlo = this;
         });
+        gui.addEventListener("load", function()
+        {
+            const gui = this;
+        });
 
         let dane = 
         {
@@ -55,7 +65,8 @@ let Silnik =
             niebo: niebo,
             mapa : mapa,
             postacie : postacie,
-            tlo : tlo
+            tlo : tlo,
+            gui: gui
         };
 
         

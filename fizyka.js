@@ -4,6 +4,7 @@ let Fizyka =
     {
         Fizyka.zadania.Grawitacja(dane.obiekty.wiedzmin);
         Fizyka.zadania.Kolizje_wykrywanie(dane);
+        Fizyka.zadania.Smierc(dane);
     },
 
     zadania:
@@ -58,6 +59,10 @@ let Fizyka =
                     wiedzmin.x = obiekt.x + obiekt.w;
                 }
             }
+        },
+        Smierc: function(dane)
+        {
+            if(dane.obiekty.wiedzmin.y > 1248)Smierc.wywolanie(dane);
         }
     }
 }
