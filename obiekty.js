@@ -28,10 +28,20 @@ let Obiekty =
             w:6000,
             h:768
         };
+        let gui =
+        {
+            obraz: new Obiekty.zadania.Obraz(dane.gui, 0, 0, 200, 124),
+            x:0,
+            y:0,
+            w:200,
+            h:96
+        };
         //pozycja na mapie/ wielkosc
         let wiedzmin = new Obiekty.zadania.Wiedzmin(dane.postacie,150,0,96,128)
 
-        let sciany = [[0,704,1536,128],[1856,576,128,64],[2304,704,768,256],[-96,608,96,300]];
+        let sciany = [[0,704,1536,128],[1856,576,128,64],[2304,704,768,256],[-96,0,96,1000]];
+
+        let wrodzy = [[0,0],[300,0]];
 
         dane.obiekty = {};
         dane.obiekty.niebo = niebo;
@@ -39,11 +49,18 @@ let Obiekty =
         dane.obiekty.mapa = mapa;
         dane.obiekty.wiedzmin = wiedzmin;
         dane.obiekty.tabelaScian = [];
+        dane.obiekty.tabelaWrogow = [];
+        dane.obiekty.gui = gui;
 
         sciany.forEach(function(z)
         {
             dane.obiekty.tabelaScian.push(new Obiekty.zadania.Sciana(z[0],z[1],z[2],z[3]));
         });
+
+        wrodzy.forEach(function(p) 
+        {
+			dane.obiekty.tabelaWrogow.push(new Obiekty.zadania.Wrog(dane.grafika, p[0], p[1], 96, 96));
+		});
     },
     zadania: 
     {
@@ -222,7 +239,75 @@ let Obiekty =
             this.predkoscY = 1;
             this.predkoscX = 4;
             this.predkoscTlo = 1;
+            this.zycia = 3;
         },
+
+        Wrog: function(img, x, y, w, h)
+        {
+            let wnetrze=this;
+
+            this.obraz = new Obiekty.zadania.Obraz(img, 0, 0, 32, 32)
+            this.animacja=
+            {
+                poruszanie: 
+                {
+                    klatka: [new Obiekty.zadania.Obraz(img, 0, 64, 32, 32),
+                        new Obiekty.zadania.Obraz(img, 32, 64, 32, 32),
+                        new Obiekty.zadania.Obraz(img, 64, 64, 32, 32),
+                        new Obiekty.zadania.Obraz(img, 32, 64, 32, 32)],
+                    obecnaKlatka:0
+                },
+                skok: new Obiekty.zadania.Obraz(img, 128, 64, 32, 32)
+            };
+            this.stan=
+            {
+                poruszanie:
+                {
+                    ruch: function(dane)
+                    {
+                        if(wnetrze.kierunek === "prawo")
+                        {
+                            wnetrze.x += wnetrze.predkoscX;
+                        }
+                        else
+                        {
+                            wnetrze.x -= wnetrze.predkoscX;
+                        }
+                    },
+                    animacja: function(dane)
+                    {
+                        if(dane.nrKlatki % 5 ==0)
+                        {
+                            wnetrze.obraz = wnetrze.animacja.poruszanie.klatka[wnetrze.animacja.poruszanie.obecnaKlatka];
+                            wnetrze.animacja.poruszanie.obecnaKlatka++;
+                        }
+                        if(wnetrze.animacja.poruszanie.obecnaKlatka > 3)
+                        {
+                            wnetrze.animacja.poruszanie.obecnaKlatka = 0;
+                        }
+                    }
+                },
+                skakanie:
+                {
+                    ruch: function(dane)
+                    {
+                        return;
+                    },
+                    animacja: function(dane)
+                    {
+                        wnetrze.obraz= wnetrze.animacja.skok;
+                    }
+                }
+            };
+            this.kierunek = "prawo";
+            this.predkoscY = 0;
+            this.predkoscX = 1;
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+        },
+
         Sciana: function(x, y, w, h)
         {
             this.x = x;
