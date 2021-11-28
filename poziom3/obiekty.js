@@ -43,8 +43,8 @@ let Obiekty =
 
         let tajneSciany = [[1984,512,64,64],[2880,512,64,64],[3264,704,64,64],[4544,704,64,64]];
 
-        let potwory = [[2048,576],[2624,576],[3264,704],[3464,704],[4000,704],[4300,704]];
-
+        let potwory = [[2048,576],[2624,576],[2500,576],[2300,576],[3264,704],[3464,704],[4000,704],[4200,704],[4300,704],[4100,704],[3600,704]];
+0
         let pocisk = 
         {
             obraz: new Obiekty.zadania.Obraz(dane.postacie,0,128,32,32),
@@ -407,7 +407,7 @@ let Obiekty =
             this.obecnyStan = wnetrze.stan.poruszanie;
             this.kierunek = "prawo";
             this.predkoscY = 0;
-            this.predkoscX = 1;
+            this.predkoscX = 3;
             this.typ = "wrog";
             this.x = x;
             this.y = y;

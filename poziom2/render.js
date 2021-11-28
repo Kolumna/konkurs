@@ -24,8 +24,11 @@ let Render =
 		{
 			Render.zadania.Pisz("Zginąłeś!", dane.canvas.guiCtx, 350, 150, "144px", "VT323");
 			dane.obiekty.wiedzmin.obecnyStan = dane.obiekty.wiedzmin.obecnyStan.smierc;
+			setTimeout(function(){
+				location.href = "../poziom1/gra.html";
+			}, 3000);
 		}
-		if(dane.obiekty.wiedzmin.zabito == 4)
+		if(dane.obiekty.wiedzmin.zabito == 6)
 		{
 			Render.zadania.Pisz2("Udało się! Przechodzimy dalej!", dane.canvas.guiCtx, 60, 150, "96px", "VT323");
 			dane.obiekty.wiedzmin.obecnyStan = dane.obiekty.wiedzmin.obecnyStan.stanie;
@@ -33,7 +36,7 @@ let Render =
 				location.href = "../poziom3/gra.html";
 			}, 3000);
 		}
-		if(dane.obiekty.wiedzmin.zabito != 4)
+		if(dane.obiekty.wiedzmin.zabito != 6)
 		{
 			if(dane.obiekty.wiedzmin.Matak == false)
 			{

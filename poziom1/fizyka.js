@@ -3,7 +3,7 @@ let Fizyka =
     aktualizacja: function(dane)
     {
         Fizyka.zadania.Grawitacja(dane.obiekty.wiedzmin);
-        if(dane.obiekty.wiedzmin.deadMoment == false)
+        if(!dane.obiekty.wiedzmin.deadMoment)
         {
             Fizyka.zadania.Kolizje_wykrywanie(dane);
         }
@@ -20,7 +20,7 @@ let Fizyka =
     {
         Grawitacja: function(obiekt)
         {
-            if(obiekt.deadMoment == false)
+            if(!obiekt.deadMoment)
             {
                 obiekt.obecnyStan = obiekt.stan.stanie;
             }
