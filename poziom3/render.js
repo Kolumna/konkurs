@@ -24,16 +24,19 @@ let Render =
 		{
 			Render.zadania.Pisz("Zginąłeś!", dane.canvas.guiCtx, 350, 150, "144px", "VT323");
 			dane.obiekty.wiedzmin.obecnyStan = dane.obiekty.wiedzmin.obecnyStan.smierc;
+			setTimeout(function(){
+				location.href = "../poziom1/gra.html";
+			}, 3000);
 		}
-		if(dane.obiekty.wiedzmin.zabito == 6)
+		if(dane.obiekty.wiedzmin.zabito == 11)
 		{
-			Render.zadania.Pisz2("Brawo! Przeszedłeś grę!", dane.canvas.guiCtx, 120, 150, "96px", "VT323");
+			Render.zadania.Pisz2("Brawo! Przeszedłeś grę!", dane.canvas.guiCtx, 150, 150, "96px", "VT323");
 			dane.obiekty.wiedzmin.obecnyStan = dane.obiekty.wiedzmin.obecnyStan.stanie;
 			setTimeout(function(){
 				location.href = "../index.html";
 			}, 3000);
 		}
-		if(dane.obiekty.wiedzmin.zabito != 6)
+		if(dane.obiekty.wiedzmin.zabito != 11)
 		{
 			if(dane.obiekty.wiedzmin.Matak == false)
 			{
@@ -65,7 +68,7 @@ let Render =
 			gdzie.fillText(tekst,x,y);
 			gdzie.shadowColor="black";
 			gdzie.lineWidth=1;
-			gdzie.strokeText("Brawo! Przeszedłeś grę!",120,150);
+			gdzie.strokeText("Brawo! Przeszedłeś grę!",150,150);
 		},
 		Pisz3: function(tekst, gdzie, x, y, rozmiar, czcionka)
 		{

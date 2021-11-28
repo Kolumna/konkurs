@@ -24,6 +24,9 @@ let Render =
 		{
 			Render.zadania.Pisz("Zginąłeś!", dane.canvas.guiCtx, 350, 150, "144px", "VT323");
 			dane.obiekty.wiedzmin.obecnyStan = dane.obiekty.wiedzmin.obecnyStan.smierc;
+			setTimeout(function(){
+				location.href = "gra.html";
+			}, 3000);
 		}
 		if(dane.obiekty.wiedzmin.zabito == 2)
 		{
