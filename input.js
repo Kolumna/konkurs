@@ -35,6 +35,14 @@ let Input =
                     {
                         dane.obiekty.tabelaScian[i].x -= wiedzmin.predkoscX;
                     }
+                    for(let i=0; i<dane.obiekty.tabelaPotworow.length; i++)
+                    {
+                        dane.obiekty.tabelaPotworow[i].x -= wiedzmin.predkoscX;
+                    }
+                    for(let i=0; i<dane.obiekty.tabelaTajna.length; i++)
+                    {
+                        dane.obiekty.tabelaTajna[i].x -= wiedzmin.predkoscX;
+                    }
                 }
                 if(wiedzmin.x < dane.canvas.tloCanvas.width/2 || dane.obiekty.tlo.x <= dane.canvas.tloCanvas.width-dane.obiekty.tlo.w)
                 {
@@ -51,7 +59,7 @@ let Input =
             wiedzmin.kierunek = "lewo";
             if(wiedzmin.predkoscY == 0)
             {
-                wiedzmin.obecnyStan = wiedzmin.stan.poruszanie
+                wiedzmin.obecnyStan = wiedzmin.stan.poruszanie;
             }
             else
             {
@@ -65,6 +73,14 @@ let Input =
                     for(let i=0; i<dane.obiekty.tabelaScian.length; i++)
                     {
                         dane.obiekty.tabelaScian[i].x += wiedzmin.predkoscX;
+                    }
+                    for(let i=0; i<dane.obiekty.tabelaPotworow.length; i++)
+                    {
+                        dane.obiekty.tabelaPotworow[i].x += wiedzmin.predkoscX;
+                    }
+                    for(let i=0; i<dane.obiekty.tabelaTajna.length; i++)
+                    {
+                        dane.obiekty.tabelaTajna[i].x += wiedzmin.predkoscX;
                     }
                 }
                 if(wiedzmin.x > dane.canvas.tloCanvas.width/2 || dane.obiekty.tlo.x >= 0)
@@ -81,6 +97,35 @@ let Input =
         {
             wiedzmin.obecnyStan = wiedzmin.stan.skakanie;
         }
+        if(wiedzmin.kierunek == "prawo")
+        {
+            if(Input.zadania.Nacisnieto(13))
+            {
+                dane.obiekty.pocisk.x = wiedzmin.x + 64;  
+                dane.obiekty.pocisk.y = wiedzmin.y - 64;  
+                wiedzmin.atak = true;    
+            }
+            else
+            {
+                dane.obiekty.pocisk.x = wiedzmin.x - 1000;  
+                wiedzmin.atak = false;  
+            } 
+        }
+        if(wiedzmin.kierunek == "lewo")
+        {
+            if(Input.zadania.Nacisnieto(13))
+            {
+                dane.obiekty.pocisk.x = wiedzmin.x - 112;  
+                dane.obiekty.pocisk.y = wiedzmin.y - 64;
+                wiedzmin.atak = true;
+            }
+            else
+            {
+                dane.obiekty.pocisk.x = wiedzmin.x - 1000;
+                wiedzmin.atak = false; 
+            } 
+        }
+        
     },
     zadania:
     {

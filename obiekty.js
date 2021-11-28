@@ -37,36 +37,52 @@ let Obiekty =
             h:96
         };
         //pozycja na mapie/ wielkosc
-        let wiedzmin = new Obiekty.zadania.Wiedzmin(dane.postacie,150,0,96,128)
+        let wiedzmin = new Obiekty.zadania.Wiedzmin(dane.postacie,150,567,96,128)
 
-        let sciany = [[0,704,1536,128],[1856,576,128,64],[2304,704,768,256],[-96,0,96,1000]];
+        let sciany = [[0,704,1536,128],[1856,576,128,64],[2304,704,768,256],[0,0,10,1000],[2560,192,512,64],[2560,448,256,64]];
 
-        let wrodzy = [[0,0],[300,0]];
+        let tajneSciany = [[2496,384,64,300],[2816,384,64,128],[2496,128,64,300],[3072,128,64,300]];
 
+        let potwory = [[2592,384],[2592,192]];
+
+        let pocisk = 
+        {
+            obraz: new Obiekty.zadania.Obraz(dane.postacie,0,128,32,32),
+            x:0,
+            y:200,
+            w:150,
+            h:152
+        }
         dane.obiekty = {};
         dane.obiekty.niebo = niebo;
         dane.obiekty.tlo = tlo;
         dane.obiekty.mapa = mapa;
         dane.obiekty.wiedzmin = wiedzmin;
         dane.obiekty.tabelaScian = [];
-        dane.obiekty.tabelaWrogow = [];
+        dane.obiekty.tabelaPotworow = [];
+        dane.obiekty.tabelaTajna = [];
         dane.obiekty.gui = gui;
+        dane.obiekty.pocisk = pocisk;
+
 
         sciany.forEach(function(z)
         {
             dane.obiekty.tabelaScian.push(new Obiekty.zadania.Sciana(z[0],z[1],z[2],z[3]));
         });
-
-        wrodzy.forEach(function(p) 
+        tajneSciany.forEach(function(z)
         {
-			dane.obiekty.tabelaWrogow.push(new Obiekty.zadania.Wrog(dane.grafika, p[0], p[1], 96, 96));
+            dane.obiekty.tabelaTajna.push(new Obiekty.zadania.Tajna(z[0],z[1],z[2],z[3]));
+        });
+        potwory.forEach(function(p) {
+			dane.obiekty.tabelaPotworow.push(new Obiekty.zadania.Wrog(dane.postacie, p[0], p[1], 64, 96));
 		});
+
     },
     zadania: 
     {
         Obraz: function(img, x, y, w, h)
         {
-            this.img= img;
+            this.img = img;
             this.x = x;
             this.y = y;
             this.w = w;
@@ -98,7 +114,10 @@ let Obiekty =
                 staniePrawo: new Obiekty.zadania.Obraz(img,192,-1,32,32),
                 stanieLewo: new Obiekty.zadania.Obraz(img,192,32,32,32),
                 skokPrawo: new Obiekty.zadania.Obraz(img,128,-1,32,32),
-                skokLewo: new Obiekty.zadania.Obraz(img,128,32,32,32)
+                skokLewo: new Obiekty.zadania.Obraz(img,128,32,32,32),
+                smiercAnimacja: new Obiekty.zadania.Obraz(img,96,0,32,32),
+                atakowanieP: new Obiekty.zadania.Obraz(img,96,32,32,32),
+                atakowanieL: new Obiekty.zadania.Obraz(img,160,32,32,32)
             };
             this.stan = 
             {
@@ -159,6 +178,14 @@ let Obiekty =
                                 {
                                     dane.obiekty.tabelaScian[i].x -= wnetrze.predkoscX;
                                 }
+                                for(let i=0; i<dane.obiekty.tabelaPotworow.length; i++)
+                                {
+                                    dane.obiekty.tabelaPotworow[i].x -= wnetrze.predkoscX;
+                                }
+                                for(let i=0; i<dane.obiekty.tabelaTajna.length; i++)
+                                {
+                                    dane.obiekty.tabelaTajna[i].x -= wnetrze.predkoscX;
+                                }
                             }
                         }
                         else
@@ -174,6 +201,15 @@ let Obiekty =
                                 {
                                     dane.obiekty.tabelaScian[i].x += wnetrze.predkoscX;
                                 }
+                                for(let i=0; i<dane.obiekty.tabelaPotworow.length; i++)
+                                {
+                                    dane.obiekty.tabelaPotworow[i].x += wnetrze.predkoscX;
+                                }
+                                for(let i=0; i<dane.obiekty.tabelaTajna.length; i++)
+                                {
+                                    dane.obiekty.tabelaTajna[i].x += wnetrze.predkoscX;
+                                }
+                                
                             }
                         }
                         //tlo
@@ -228,7 +264,57 @@ let Obiekty =
                         }
                     }
 
+                },
+                strzelanie:
+                {
+                   ruch: function(dane)
+                    {
+                        dane.obiekty.pocisk.x = 5;                           
+                    },
+                    animacja: function(dane)
+                    {
+                        if(wnetrze.kierunek === "prawo")
+                        {
+                            wnetrze.obraz = wnetrze.animacja.skokPrawo;
+                            
+                        }
+                        else
+                        {
+                            wnetrze.obraz = wnetrze.animacja.skokLewo;
+                        }
+                    }
+                },
+                smierc: 
+                {
+                    ruch: function(dane)
+                    {
+                        wnetrze.predkoscX = 0;
+                    },
+                    animacja: function(dane)
+                    {
+                        wnetrze.obraz = wnetrze.animacja.smiercAnimacja;
+                    }
+                },
+                atakowanie:
+                {
+                    ruch: function(dane)
+                    {
+                        return;
+                    },
+                    animacja: function(dane)
+                    {
+                        if(wnetrze.kierunek === "prawo")
+                        {
+                            wnetrze.obraz = wnetrze.animacja.atakowanieP;
+                            
+                        }
+                        else
+                        {
+                            wnetrze.obraz = wnetrze.animacja.atakowanieL;
+                        }
+                    }
                 }
+                
             };
             this.obecnyStan = wnetrze.stan.stanie;
             this.kierunek = "prawo";
@@ -240,16 +326,19 @@ let Obiekty =
             this.predkoscX = 4;
             this.predkoscTlo = 1;
             this.zycia = 3;
+            this.deadMoment = false;
+            this.atak = false;
+            this.zabito = 0;
         },
 
         Wrog: function(img, x, y, w, h)
         {
             let wnetrze=this;
 
-            this.obraz = new Obiekty.zadania.Obraz(img, 0, 0, 32, 32)
+            this.obraz = new Obiekty.zadania.Obraz(img, 192,96,32,32);
             this.animacja=
             {
-                poruszanie: 
+                poruszanieP: 
                 {
                     klatka: [new Obiekty.zadania.Obraz(img, 0, 64, 32, 32),
                         new Obiekty.zadania.Obraz(img, 32, 64, 32, 32),
@@ -257,7 +346,15 @@ let Obiekty =
                         new Obiekty.zadania.Obraz(img, 32, 64, 32, 32)],
                     obecnaKlatka:0
                 },
-                skok: new Obiekty.zadania.Obraz(img, 128, 64, 32, 32)
+                skok: new Obiekty.zadania.Obraz(img, 128, 64, 32, 32),
+                poruszanieL: 
+                {
+                    klatka: [new Obiekty.zadania.Obraz(img, 0, 96, 32, 32),
+                        new Obiekty.zadania.Obraz(img, 32, 96, 32, 32),
+                        new Obiekty.zadania.Obraz(img, 64, 96, 32, 32),
+                        new Obiekty.zadania.Obraz(img, 32, 96, 32, 32)],
+                    obecnaKlatka:0
+                },
             };
             this.stan=
             {
@@ -267,23 +364,40 @@ let Obiekty =
                     {
                         if(wnetrze.kierunek === "prawo")
                         {
-                            wnetrze.x += wnetrze.predkoscX;
+                            wnetrze.x += wnetrze.predkoscX/2;
                         }
-                        else
+                        else if(wnetrze.kierunek === "lewo")
                         {
-                            wnetrze.x -= wnetrze.predkoscX;
+                            wnetrze.x -= wnetrze.predkoscX/2;
                         }
                     },
                     animacja: function(dane)
                     {
-                        if(dane.nrKlatki % 5 ==0)
+                        if(wnetrze.kierunek === "prawo")
                         {
-                            wnetrze.obraz = wnetrze.animacja.poruszanie.klatka[wnetrze.animacja.poruszanie.obecnaKlatka];
-                            wnetrze.animacja.poruszanie.obecnaKlatka++;
+                            if(dane.nrKlatki % 5 == 0) 
+                            {
+							wnetrze.obraz = wnetrze.animacja.poruszanieP.klatka[wnetrze.animacja.poruszanieP.obecnaKlatka];
+							wnetrze.animacja.poruszanieP.obecnaKlatka++;
+						    }
+						
+						    if(wnetrze.animacja.poruszanieP.obecnaKlatka > 3) 
+                            {
+							wnetrze.animacja.poruszanieP.obecnaKlatka = 0;
+						    }
                         }
-                        if(wnetrze.animacja.poruszanie.obecnaKlatka > 3)
+                        else if(wnetrze.kierunek === "lewo")
                         {
-                            wnetrze.animacja.poruszanie.obecnaKlatka = 0;
+                            if(dane.nrKlatki % 5 == 0) 
+                            {
+							wnetrze.obraz = wnetrze.animacja.poruszanieL.klatka[wnetrze.animacja.poruszanieL.obecnaKlatka];
+							wnetrze.animacja.poruszanieL.obecnaKlatka++;
+						    }
+						
+						    if(wnetrze.animacja.poruszanieL.obecnaKlatka > 3) 
+                            {
+							wnetrze.animacja.poruszanieL.obecnaKlatka = 0;
+						    }
                         }
                     }
                 },
@@ -299,9 +413,11 @@ let Obiekty =
                     }
                 }
             };
+            this.obecnyStan = wnetrze.stan.poruszanie;
             this.kierunek = "prawo";
             this.predkoscY = 0;
             this.predkoscX = 1;
+            this.typ = "wrog";
             this.x = x;
             this.y = y;
             this.w = w;
@@ -315,6 +431,14 @@ let Obiekty =
             this.w = w;
             this.h = h;
             this.typ = "sciana";
+        },
+        Tajna: function(x, y, w, h)
+        {
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            this.typ = "tajna";
         }
     }
 }
