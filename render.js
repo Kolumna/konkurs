@@ -16,22 +16,40 @@ let Render =
 		dane.canvas.guiCtx.clearRect(0,0,dane.canvas.guiCanvas.width, dane.canvas.guiCanvas.height);
 		Render.zadania.Rysuj(dane.obiekty.gui, dane.canvas.guiCtx);
 
-		if(dane.obiekty.wiedzmin.zycia<1) Render.zadania.Pisz("Zginąłeś!", dane.canvas.guiCtx, 350, 150, "144px", "VT323");
-		
-		console.log(dane.obiekty.tabelaWrogow)
+		Render.zadania.Rysuj(dane.obiekty.pocisk, dane.canvas.postacieCtx);
+
+		if(dane.obiekty.wiedzmin.zycia<1)
+		{
+			Render.zadania.Pisz("Zginąłeś!", dane.canvas.guiCtx, 350, 150, "144px", "VT323");
+			dane.obiekty.wiedzmin.obecnyStan = dane.obiekty.wiedzmin.obecnyStan.smierc;
+		}
+		if(dane.obiekty.wiedzmin.zabito == 2)
+		{
+			Render.zadania.Pisz2("Wygrałeś! Możesz przejść dalej!", dane.canvas.guiCtx, 250, 150, "64px", "VT323");
+		}
+
+		dane.obiekty.tabelaPotworow.forEach(function(p) {
+			Render.zadania.Rysuj(p, dane.canvas.postacieCtx);
+		});
     },
     zadania: {
 		Rysuj: function(co, gdzie) 
         {
 			gdzie.drawImage(co.obraz.img, 
-										co.obraz.x, co.obraz.y,
-										co.obraz.w, co.obraz.h,
-										co.x, co.y, co.w, co.h);
+				co.obraz.x, co.obraz.y, 
+				co.obraz.w, co.obraz.h,
+				co.x, co.y, co.w, co.h);
 		},
 		Pisz: function(tekst, gdzie, x, y, rozmiar, czcionka)
 		{
 			gdzie.font = rozmiar + " " + czcionka;
 			gdzie.fillStyle = "#B51B14";
+			gdzie.fillText(tekst,x,y);
+		},
+		Pisz2: function(tekst, gdzie, x, y, rozmiar, czcionka)
+		{
+			gdzie.font = rozmiar + " " + czcionka;
+			gdzie.fillStyle = "#09450a";
 			gdzie.fillText(tekst,x,y);
 		}
 	}

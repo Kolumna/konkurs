@@ -4,6 +4,7 @@ let Animacje =
     {
         Animacje.zadania.Niebo(dane);
         Animacje.zadania.Wiedzmin(dane);
+        Animacje.zadania.Wrog(dane);
     },
     zadania:
     {
@@ -18,6 +19,14 @@ let Animacje =
         Wiedzmin: function(dane)
         {
             dane.obiekty.wiedzmin.obecnyStan.animacja(dane);
+        },
+
+        Wrog: function(dane)
+        {
+            dane.obiekty.tabelaPotworow.forEach(function(p)
+            {
+                p.obecnyStan.animacja(dane);
+            });
         }
     }
 }

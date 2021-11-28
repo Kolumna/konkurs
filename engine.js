@@ -69,6 +69,12 @@ let Silnik =
             gui: gui
         };
 
+        dane.canvas.nieboCtx.imageSmoothingEnabled = false;
+        dane.canvas.postacieCtx.imageSmoothingEnabled = false;
+        dane.canvas.tloCtx.imageSmoothingEnabled = false;
+        dane.canvas.guiCtx.imageSmoothingEnabled = false;
+        dane.canvas.mapaCtx.imageSmoothingEnabled = false;
+
         
         Obiekty.ini(dane);
         Silnik.start(dane);
